@@ -1,3 +1,11 @@
+* {
+    overflow: auto;
+    /* or auto */
+    margin: 0;
+    padding: 0;
+    font-family: 'Ubuntu', sans-serif;
+}
+
 body,
 html {
     height: 100%;
@@ -11,51 +19,25 @@ html {
     background-size: cover;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    font-family: 'Ubuntu', sans-serif;
+.textSize {
+    position: centre;
+    color: rgb(45, 87, 126);
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    font-size: 62px;
 }
 
-.header {
-    min-height: 100vh;
-    width: 100%;
-    background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url(images/background.jpg);
-    background-position: center;
-    background-size: cover;
-    position: relative;
+.textSize1 {
+    position: centre;
+    color: rgb(45, 87, 126);
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    font-size: 62px;
 }
 
-nav {
-    display: flex;
-    padding: 2% 6%;
-    justify-content: space-between;
-    align-items: center;
-}
-
-nav img {
-    width: 150px;
-}
-
-.nav-link {
-    flex: 1;
-    text-align: right;
-}
-
-.nav-link ul li {
-    list-style: none;
-    display: inline-block;
-    padding: 8px 12px;
-    position: relative;
-}
-
-.nav-link ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: large;
-}
-
-.nav-link ul li ::after {
+.nav-link::after {
     content: '';
     width: 0%;
     height: 2px;
@@ -65,30 +47,44 @@ nav img {
     transition: 0.5s;
 }
 
-.nav-link ul li :hover:after {
+.nav-link:hover:after {
     width: 100%;
 }
 
-.myslide {
-    display: flex;
+@media (min-width: 544px) {
+    .textSize1 {
+        font-size: 0.1rem;
+    }
+    .textSize {
+        font-size: 0.5rem;
+    }
 }
 
-.text {
-    position: centre;
-    color: rgb(45, 87, 126);
-    top: 50%;
-    left: 50%;
-    text-align: center;
-    font-size: x-large;
+@media (min-width: 768px) {
+    .textSize1 {
+        font-size: 0.5rem;
+    }
+    .textSize {
+        font-size: 1rem;
+    }
 }
 
-.text h1 {
-    font-size: 62px;
+@media (min-width: 992px) {
+    .textSize1 {
+        font-size: 1.1rem;
+    }
+    .textSize {
+        font-size: 1.7rem;
+    }
 }
 
-.text p {
-    margin: 10px 0 40px;
-    font-size: 28px;
+@media (min-width: 1200px) {
+    .textSize1 {
+        font-size: 4.1rem;
+    }
+    .textSize {
+        font-size: 4.5rem;
+    }
 }
 
 .hero-btn {
@@ -106,25 +102,6 @@ nav img {
     border: 1px solid #345696;
     background: #3b5a92;
     transition: 1s;
-}
-
-@media(max-width: 700px) {
-    .text-box h1 {
-        font-size: 20px;
-    }
-    .nav-links ul li {
-        display: block;
-    }
-    .nav-links {
-        position: absolute;
-        background: #3b5a92;
-        height: 100vh;
-        width: 200px;
-        top: 0;
-        right: 0;
-        text-align: left;
-        z-index: 2;
-    }
 }
 
 .contact-bg {
@@ -153,7 +130,7 @@ nav img {
 }
 
 .contact-bg .text {
-    margin: 1.6rem;
+    margin: 2.0rem;
 }
 
 .contact-body {
@@ -180,7 +157,7 @@ nav img {
 .contact-info span .fas {
     font-size: 2rem;
     padding-bottom: 0.9rem;
-    color: pink;
+    color: gray;
 }
 
 .contact-info div span:nth-child(2) {
