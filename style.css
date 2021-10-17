@@ -104,6 +104,17 @@ html {
     transition: 1s;
 }
 
+
+/* Contact css */
+
+.background {
+    background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url(images/contact-bg1.jpg);
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .contact-bg {
     height: 40Vh;
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(images/contact-Background.jpg);
@@ -245,4 +256,14 @@ html {
     .contact-info {
         grid-template-columns: repeat(4, 1fr);
     }
+}
+
+
+/* About us css */
+
+.bkg {
+    background-image: linear-gradient(rgba(26, 30, 48, 0.7), rgba(27, 30, 37, 0.7)), url(images/medicare3.jpg);
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
