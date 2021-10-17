@@ -112,7 +112,7 @@ $showAlert = false;
                             <a class="nav-link" style="color: white;" href="#">My Appointment</a>
                         </li>
                         <li class="nav-item me-3">
-                            <a class="nav-link" style="color: white;" href="#"> About us</a>
+                            <a class="nav-link" style="color: white;" href="aboutUs.html"> About us</a>
                         </li>
                         <li class="nav-item me-5" style="padding-right: 110px;">
                             <a class="nav-link" style="color: white;" href="contact.html">Contact</a>
