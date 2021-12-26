@@ -71,7 +71,7 @@
                     <p class="overflow-visible " style="font-size: 28px;"><b>from Anywhere, Anytime through VIDEO/PHONE or CHAT</b></p>
                 </div>
                 <!-- <button type="button" class="btn btn-outline-dark btn-light text-light">Light</button> -->
-                <a href="index.html" class="hero-btn ms-5 ">KNOW MORE</a>
+                <a href="services.html" class="hero-btn ms-5 ">KNOW MORE</a>
             </div>
 
             <div class="col-sm-1"></div>
@@ -82,6 +82,7 @@
         </div>
 
     </div>
+
     <!-- login -->
     <div class="modal fade" id="myModal">
         <div class="modal-dialog">
@@ -89,20 +90,44 @@
 
                 <div class="modal-body">
                     <h2>Login</h2>
-                    <form action="">
+                    <form action="front1.php" method="post">
                         <div class="mb-3 mt-3">
                             <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
                         </div>
                         <div class="mb-3">
                             <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd" required>
                         </div>
-                        <div class="form-check mb-3">
-                            <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" name="remember" required> Remember me
+
+                        <div class=" ">
+                            <h5>Register as: </h5>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="usertype" id="inlineRadio1" value="patient">
+                                <label class="form-check-label" for="inlineRadio1">Patient</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="usertype" id="inlineRadio2" value="doctor">
+                                <label class="form-check-label" for="inlineRadio2">Doctor</label>
+                            </div>
+                        </div>
+
+                        <!--  <div class="form-check mb-3">
+                                    <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" name="remember" required> Remember me
+                                    </label>
+                                </div>  -->
+
+                        <div class="form-check mt-1">
+                            <input class="form-check-input" type="checkbox" name="remember" value="" id="defaultCheck1" required>
+                            <label class="form-check-label" for="defaultCheck1">
+                                    Remember me
                                 </label>
                         </div>
-                        <button type="submit" class="btn btn-primary">Log in</button>
 
+                        <button type="submit" name="login" class="btn btn-primary">Log in</button>
+
+                        <div class="mt-2 ms-1">
+                            <a href="#" style="text-decoration:none;"><span>Forgotten password?</span></a>
+                        </div>
                     </form>
                 </div>
 
@@ -120,23 +145,23 @@
                     <div class="container mt-3">
                         <h2>Sign Up</h2>
 
-                        <form>
-                            <div class=" mt-3 ">
-                                <div class="row  overflow-visible">
-                                    <div class="col-sm  overflow-visible">
-                                        <input type="text" class="form-control  overflow-visible" placeholder="First Name" name="FirstName">
+                        <form action="front1.php" method="post">
+                            <div class=" mt-3 overflow-hidden">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <input type="text" class="form-control" placeholder="First Name" name="FirstName">
                                     </div>
-                                    <div class="col-sm  overflow-visible">
-                                        <input type="text" class="form-control  overflow-visible" placeholder="Last Name" name="LastName">
+                                    <div class="col-sm overflow-hidden">
+                                        <input type="text" class="form-control" placeholder="Last Name" name="LastName">
                                     </div>
                                 </div>
                             </div>
                             <br>
 
-                            <div class="">
+                            <div class=" overflow-hidden">
                                 <div class="row">
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Email" name="email">
+                                        <input type="email" class="form-control" placeholder="Email" name="email">
                                     </div>
                                     <div class="col">
                                         <input type="city" class="form-control" placeholder="City" name="city">
@@ -145,13 +170,13 @@
                             </div>
                             <br>
 
-                            <div class=" ">
+                            <div class="overflow-hidden ">
                                 <div class="row">
                                     <div class="col-sm">
                                         <input type="password" class="form-control" placeholder="Password" name="pswd">
                                     </div>
                                     <div class="col-sm">
-                                        <input type="password" class="form-control" placeholder="Confirm password" name="pswd">
+                                        <input type="password" class="form-control" placeholder="Retype password" name="rpswd">
                                     </div>
                                 </div>
                             </div>
@@ -160,31 +185,42 @@
                             <div class=" ">
                                 <h5>Register as: </h5>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                    <input class="form-check-input" type="radio" name="usertype" id="inlineRadio1" value="patient">
                                     <label class="form-check-label" for="inlineRadio1">Patient</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                    <input class="form-check-input" type="radio" name="usertype" id="inlineRadio2" value="doctor">
                                     <label class="form-check-label" for="inlineRadio2">Doctor</label>
                                 </div>
                             </div>
 
-                            <div class=" form-check mt-3">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" name="remember"> Accept our<a href="#" style="text-decoration: none; "> Terms & Conditions</a>
-                                </label>
+                            <!-- <div class=" form-check mt-3">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" name="remember"> Accept our<a href="#" style="text-decoration: none; "> Terms & Conditions</a>
+                                    </label>
+                                </div> -->
+                            <div class="form-check mt-1">
+                                <input class="form-check-input" type="checkbox" name="remember" value="" id="defaultCheck1" required>
+                                <label class="form-check-label" for="defaultCheck1">
+                                        Accept our<a href="#" style="text-decoration: none; "> Terms & Conditions</a>
+                                    </label>
                             </div>
+
                             <br>
 
-                            <button type="submit" class="btn btn-primary">Register</button>
-
+                            <button type="submit" name="signup" class="btn btn-primary">Register</button>
+                            <?php
+                                    if($showAlert)
+                                    {
+                                        echo "submitted successfully";
+                                    }
+                                ?>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 
 
 </body>

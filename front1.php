@@ -11,6 +11,7 @@ $showAlert = false;
     $city=$_POST["city"];
     $pswd=$_POST["pswd"];
     $rpswd=$_POST["rpswd"];
+    $usertype=$_POST["usertype"];
     $exists=false;
 
     $existSql="SELECT * FROM `signup` WHERE email='$email'";
@@ -23,7 +24,7 @@ $showAlert = false;
     else{
 
     if($pswd == $rpswd){
-        $sql="INSERT INTO `signup` (`FirstName`, `LastName`, `email`, `city`, `pswd`, `rpswd`) VALUES ('$FirstName', '$LastName', '$email', '$city', '$pswd', '$rpswd')";
+        $sql="INSERT INTO `signup` (`FirstName`, `LastName`, `email`, `city`, `pswd`, `rpswd`, `usertype`) VALUES ('$FirstName', '$LastName', '$email', '$city', '$pswd', '$rpswd','$usertype')";
         $result = mysqli_query($conn,$sql);
         if($result){
             $showAlert = true;
@@ -49,8 +50,10 @@ $showAlert = false;
         include 'dbconnect.php';
         $email = $_POST["email"];
         $pswd = $_POST["pswd"];
+        $usertype = $_POST['usertype'];
  
-        $sql = "Select * from signup where email='$email' AND pswd='$pswd'";
+        $sql = "Select * from `signup` where email='$email' AND pswd='$pswd' and usertype= '$usertype'";
+        
         $result = mysqli_query($conn, $sql);
         $num = mysqli_num_rows($result);
         if($num == 1){
@@ -59,11 +62,14 @@ $showAlert = false;
             session_start();
             $_SESSION['loggedin'] = true;
             $_SESSION['email']= $email;
-            header("location: welcome.php");
+            if($usertype=="patient")
+            header("location: patient_profile.php");
+            else if($usertype=="doctor")
+            header("location: doctor_profile.php");
         }
         else{
-            echo "password do not match";
-            $showError = "Password do not match";
+            echo "password do not match or sign up first";
+            $showError = "Password do not match or sign up first";
         }
      }
     
@@ -88,7 +94,7 @@ $showAlert = false;
 </head>
 
 <body class="overflow-auto">
-    <div class="container-fluid bg ">
+    <!-- <div class="container-fluid bg "> -->
 
         <nav class="container-fluid navbar navbar-expand-sm py-3 d-flex navbar-dark fs-4 fw-bold">
             <div class="container-fluid ">
@@ -106,7 +112,7 @@ $showAlert = false;
                             <a href="#" class="nav-link" style="color: white;" data-bs-toggle="modal" data-bs-target="#myModal">Login</a></li>
                         </li>
                         <li class="nav-item me-3">
-                            <a class="nav-link" style="color: white;" data-bs-toggle="modal" data-bs-target="#SignUpModal">Signup</a></li>
+                            <a href="#" class="nav-link" style="color: white;" data-bs-toggle="modal" data-bs-target="#SignUpModal">Signup</a></li>
                         </li>
                         <li class="nav-item me-3">
                             <a class="nav-link" style="color: white;" href="#">My Appointment</a>
@@ -115,13 +121,16 @@ $showAlert = false;
                             <a class="nav-link" style="color: white;" href="aboutUs.html"> About us</a>
                         </li>
                         <li class="nav-item me-5" style="padding-right: 110px;">
-                            <a class="nav-link" style="color: white;" href="contact.html">Contact</a>
+                            <a class="nav-link" style="color: white;" href="contact.php">Contact</a>
                         </li>
                     </ul>
                 </div>
 
             </div>
         </nav>
+
+        
+        <div class="container-fluid bg ">
 
         <div class="row container-fluid  mt-5">
             <div class=" col-sm-4 ">
@@ -144,7 +153,7 @@ $showAlert = false;
                     <p class="overflow-visible " style="font-size: 28px;"><b>from Anywhere, Anytime through VIDEO/PHONE or CHAT</b></p>
                 </div>
                 <!-- <button type="button" class="btn btn-outline-dark btn-light text-light">Light</button> -->
-                <a href="index.html" class="hero-btn ms-5 ">KNOW MORE</a>
+                <a href="services.html" class="hero-btn ms-5 ">KNOW MORE</a>
             </div>
 
             <div class="col-sm-1"></div>
@@ -169,13 +178,37 @@ $showAlert = false;
                             <div class="mb-3">
                                 <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd" required>
                             </div>
-                            <div class="form-check mb-3">
+
+                            <div class=" ">
+                            <h5>Register as: </h5>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="usertype" id="inlineRadio1" value="patient">
+                                <label class="form-check-label" for="inlineRadio1">Patient</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="usertype" id="inlineRadio2" value="doctor">
+                                <label class="form-check-label" for="inlineRadio2">Doctor</label>
+                            </div>
+                        </div>
+
+                          <!--  <div class="form-check mb-3">
                                 <label class="form-check-label">
                                 <input class="form-check-input" type="checkbox" name="remember" required> Remember me
                                 </label>
-                            </div>
-                            <button type="submit" name="login" class="btn btn-primary">Log in</button>
-                           
+                            </div>  -->
+
+                            <div class="form-check mt-1">
+                            <input class="form-check-input" type="checkbox" name="remember" value="" id="defaultCheck1" required>
+                            <label class="form-check-label" for="defaultCheck1">
+                                Remember me
+                            </label>
+                        </div>
+                        
+                        <button type="submit" name="login" class="btn btn-primary">Log in</button>
+                        
+                        <div class="mt-2 ms-1">
+                            <a href="#" style="text-decoration:none;"><span>Forgotten password?</span></a>
+                          </div>
                         </form>
                 </div>
       
@@ -194,19 +227,19 @@ $showAlert = false;
                     <h2>Sign Up</h2>
             
                         <form action="front1.php" method="post">
-                            <div class=" mt-3 ">
+                            <div class=" mt-3 overflow-hidden">
                                 <div class="row">
                                     <div class="col-sm">
                                         <input type="text" class="form-control" placeholder="First Name" name="FirstName">
                                     </div>
-                                    <div class="col-sm">
+                                    <div class="col-sm overflow-hidden">
                                         <input type="text" class="form-control" placeholder="Last Name" name="LastName">
                                     </div>
                                 </div>
                             </div>
                             <br>
                         
-                            <div class="" >
+                            <div class=" overflow-hidden">
                                 <div class="row">
                                     <div class="col">
                                         <input type="email" class="form-control" placeholder="Email" name="email">
@@ -218,7 +251,7 @@ $showAlert = false;
                             </div>
                             <br>
 
-                            <div class=" " >
+                            <div class="overflow-hidden " >
                                 <div class="row">
                                     <div class="col-sm">
                                         <input type="password" class="form-control" placeholder="Password" name="pswd">
@@ -233,20 +266,27 @@ $showAlert = false;
                             <div class=" " >
                                 <h5>Register as: </h5>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                    <input class="form-check-input" type="radio" name="usertype" id="inlineRadio1" value="patient">
                                     <label class="form-check-label" for="inlineRadio1">Patient</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                    <input class="form-check-input" type="radio" name="usertype" id="inlineRadio2" value="doctor">
                                     <label class="form-check-label" for="inlineRadio2">Doctor</label>
                                 </div>
                             </div>
                     
-                            <div class=" form-check mt-3">
+                            <!-- <div class=" form-check mt-3">
                                 <label class="form-check-label">
                                     <input class="form-check-input" type="checkbox" name="remember"> Accept our<a href="#" style="text-decoration: none; "> Terms & Conditions</a>
                                 </label>
+                            </div> -->
+                            <div class="form-check mt-1">
+                                <input class="form-check-input" type="checkbox" name="remember" value="" id="defaultCheck1" required>
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Accept our<a href="#" style="text-decoration: none; "> Terms & Conditions</a>
+                                </label>
                             </div>
+                            
                             <br>
                         
                             <button type="submit" name="signup" class="btn btn-primary">Register</button>
