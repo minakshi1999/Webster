@@ -71,9 +71,7 @@ if (isset($_POST['submit'])) {
                         <a href="../signup.php" class="nav-link" style="color: white;" >Signup</a>
                     </li>
                     </li>
-                    <li class="nav-item me-3">
-                        <a class="nav-link" style="color: white;" href="#">My Appointment</a>
-                    </li>
+                 
                     <li class="nav-item me-3">
                         <a class="nav-link" style="color: white;" href="../aboutUs.html">About us</a>
                     </li>

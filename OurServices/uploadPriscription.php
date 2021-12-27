@@ -8,27 +8,67 @@ if (isset($_POST['submit'])) {
         $lastname = $_POST["lastname"];
         $email = $_POST["email"];
         $mobile = $_POST["mobile"];
-        $services = $_POST["service_name"];
+        $file= $_FILES["file"];
         $address = $_POST["address"];
         $city = $_POST["city"];
         $pin = $_POST["pin"];
         $state = $_POST["state"];
 
-        $iquery = "INSERT INTO `homecareform` (`Firstname`, `Lastname`, `Email`, `Mobile`,`Service` ,`Address`, `City`, `PIN`, `State`) VALUES ('$firstname', '$lastname', '$email', '$mobile','$services','$address','$city', '$pin','$state')";
-        $query = mysqli_query($conn, $iquery);
-        if ($query) {
-?>
+        $fileName= $_FILES['file']['name'];
+        $fileTmp=$_FILES['file']['tmp_name'];
+        $fileSize=$_FILES['file']['size'];
+        $fileError=$_FILES['file']['error'];
+        $fileType=$_FILES['file']['type'];
+
+        $fileExt=explode('.',$fileName);
+        $fileactualExt= strtolower(end($fileExt));
+
+        $allowed=array('jpg','jpeg','png','pdf');
+        if(in_array($fileactualExt,$allowed)){
+           if($fileError===0){
+               if($fileSize<1000000){
+                  $filenameNew=uniqid('',true).".".$fileactualExt;
+                  $fileDestination = '../admin/'.$filenameNew;
+                  move_uploaded_file($fileTmp,$fileDestination);
+
+                  $iquery = "INSERT INTO `uploadpriscription` (`Firstname`, `Lastname`, `Email`, `Mobile`, `Address`, `City`, `PIN`, `State`) VALUES ('$firstname', '$lastname', '$email', '$mobile','$address','$city', '$pin','$state')";
+                  $query = mysqli_query($conn, $iquery);
+                  if ($query) {
+                      ?>
+                        <script>
+                            alert("Submittesd successfuly");
+                        </script>
+                    <?php
+                    } else {
+                    ?>
+                        <script>
+                            alert("There is error in submission");
+                        </script>
+            <?php
+                    }
+               }else{
+                ?>
+                <script>
+                    alert("Your file is too big!");
+                </script>
+                <?php
+               }
+           }else{
+            ?>
             <script>
-                alert("Submittesd successfuly");
+                alert("There was an error in uploading file!");
             </script>
-        <?php
-        } else {
-        ?>
+            <?php
+           }
+        }else{
+            ?>
             <script>
-                alert("There is error in submission");
+                alert("You cannot upload this type of file!");
             </script>
-<?php
+            <?php
         }
+
+      
     }
 }
 ?>
@@ -61,18 +101,15 @@ if (isset($_POST['submit'])) {
 
             <div class="collapse navbar-collapse " id="collapsibleNavbar">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item me-3 ">
-                        <a class="nav-link" style="color: white;" href="../OurServices/services.html">Services</a>
+                <li class="nav-item me-3 ">
+                            <a class="nav-link" style="color: white;" href="../OurServices/services.html">Services</a>
+                        </li>
+                    <li class="nav-item me-3">
+                        <a href="../login.php" class="nav-link" style="color: white;" >Login</a>
                     </li>
                     <li class="nav-item me-3">
-                        <a href="../login.php" class="nav-link" style="color: white;">Login</a>
+                        <a href="../signup.php" class="nav-link" style="color: white;" >Signup</a>
                     </li>
-                    </li>
-                    <li class="nav-item me-3">
-                        <a href="../signup.php" class="nav-link" style="color: white;">Signup</a>
-                    </li>
-                    </li>
-                  
                     <li class="nav-item me-3">
                         <a class="nav-link" style="color: white;" href="../aboutUs.html">About us</a>
                     </li>
@@ -86,8 +123,8 @@ if (isset($_POST['submit'])) {
     </nav>
 
     <div class="container">
-        <h2>Book Homecare</h2>
-        <form action="bookHomecareForm.php" method="POST">
+        <h2>Order Medicine</h2>
+        <form action="uploadPriscription.php" method="POST" enctype="multipart/form-data">
             <div class="col-90">
                 <input type="text" id="fname" name="firstname" placeholder="Enter your first name" required>
             </div>
@@ -101,16 +138,11 @@ if (isset($_POST['submit'])) {
             <div class="col-90">
                 <input type="tel" id="mobile" name="mobile" placeholder="Enter 10 digit Mobile no." required>
             </div>
+         
+
             <div class="col-90">
-                <select name="service_name">
-                    <option value="">Select Homecare services</option>
-                    <option value="Vaccination">Vaccination</option>
-                    <option value="Medical services">Medical services</option>
-                    <option value="Equipment">Equipment</option>
-                    <option value="General physician visits">General physician visits</option>
-                    <option value="Diabeties management">Diabeties management</option>
-                    <option value="Elderly care">Elderly care</option>
-                </select>
+                <label>Upload Priscription: </label>
+                <input type="file" name="file" >
             </div>
             <div class="col-90">
                 <textarea name="address" id="address" cols="30" rows="10" placeholder="Address"></textarea>
@@ -137,7 +169,7 @@ if (isset($_POST['submit'])) {
         </form>
     </div>
 
-
+    
     <br>
     <footer class="text-center mt-5  text-lg-start text-white" style=" background-color: black; left: 0; right: 0; width: 100%;">
         <div class="container p-4 pb-0 ">

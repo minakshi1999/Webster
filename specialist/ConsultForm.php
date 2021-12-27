@@ -8,13 +8,13 @@ if (isset($_POST['submit'])) {
         $lastname = $_POST["lastname"];
         $email = $_POST["email"];
         $mobile = $_POST["mobile"];
-        $services = $_POST["service_name"];
+        $speciality = $_POST["speciality_name"];
         $address = $_POST["address"];
         $city = $_POST["city"];
         $pin = $_POST["pin"];
         $state = $_POST["state"];
 
-        $iquery = "INSERT INTO `homecareform` (`Firstname`, `Lastname`, `Email`, `Mobile`,`Service` ,`Address`, `City`, `PIN`, `State`) VALUES ('$firstname', '$lastname', '$email', '$mobile','$services','$address','$city', '$pin','$state')";
+        $iquery = "INSERT INTO `onlineconsultform` (`Firstname`, `Lastname`, `Email`, `Mobile`,`Speciality` ,`Address`, `City`, `PIN`, `State`) VALUES ('$firstname', '$lastname', '$email', '$mobile','$speciality','$address','$city', '$pin','$state')";
         $query = mysqli_query($conn, $iquery);
         if ($query) {
 ?>
@@ -42,7 +42,7 @@ if (isset($_POST['submit'])) {
     <meta name="viewport" content="with=device-width, initial scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="callback.css">
+    <link rel="stylesheet" href="../OurServices/callback.css">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -72,7 +72,6 @@ if (isset($_POST['submit'])) {
                         <a href="../signup.php" class="nav-link" style="color: white;">Signup</a>
                     </li>
                     </li>
-                  
                     <li class="nav-item me-3">
                         <a class="nav-link" style="color: white;" href="../aboutUs.html">About us</a>
                     </li>
@@ -86,8 +85,8 @@ if (isset($_POST['submit'])) {
     </nav>
 
     <div class="container">
-        <h2>Book Homecare</h2>
-        <form action="bookHomecareForm.php" method="POST">
+        <h2>Consultation Form</h2>
+        <form action="ConsultForm.php" method="POST">
             <div class="col-90">
                 <input type="text" id="fname" name="firstname" placeholder="Enter your first name" required>
             </div>
@@ -102,14 +101,13 @@ if (isset($_POST['submit'])) {
                 <input type="tel" id="mobile" name="mobile" placeholder="Enter 10 digit Mobile no." required>
             </div>
             <div class="col-90">
-                <select name="service_name">
-                    <option value="">Select Homecare services</option>
-                    <option value="Vaccination">Vaccination</option>
-                    <option value="Medical services">Medical services</option>
-                    <option value="Equipment">Equipment</option>
-                    <option value="General physician visits">General physician visits</option>
-                    <option value="Diabeties management">Diabeties management</option>
-                    <option value="Elderly care">Elderly care</option>
+                <select name="speciality_name">
+                    <option value="" hidden>Select Specialist</option>
+                    <option value="Dermatologist">Dermatologist</option>
+                    <option value="Gynecologist">Gynecologist</option>
+                    <option value="neurologist">neurologist</option>
+                    <option value="Opthamologist">Opthamologist</option>
+                    <option value="Urologist">Urologist</option>
                 </select>
             </div>
             <div class="col-90">
@@ -161,8 +159,8 @@ if (isset($_POST['submit'])) {
                 <hr class="w-100 clearfix d-md-none" />
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
                     <h6 class="text-uppercase mb-4 font-weight-bold">links</h6>
-                    <p><a class="text-white" href="#" data-bs-toggle="modal" data-bs-target="#myModal">Login</a></p>
-                    <p><a class="text-white" href="#" data-bs-toggle="modal" data-bs-target="#SignUpModal">Sign up</a></p>
+                    <p><a class="text-white" href="../login.php" >Login</a></p>
+                    <p><a class="text-white" href="../signup.php" >Sign up</a></p>
                     <p><a class="text-white" href="#">Appointment</a></p>
                     <p><a class="text-white" href="../aboutUs.html">About Us</a></p>
                 </div>
