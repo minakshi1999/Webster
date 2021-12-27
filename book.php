@@ -86,7 +86,8 @@ function timeslots($duration, $cleanup, $start, $end){
     <link rel="stylesheet" href="/css/main.css">
   </head>
 
-  <body>
+  <body style=" background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url(images/abstract-technological-background_23-2148897676.jpg);
+            background-size: cover;">
     <div class="container">
         <h1 class="text-center">Book for Date: <?php echo date('m/d/Y', strtotime($date)); ?></h1><hr>
         <div class="row">

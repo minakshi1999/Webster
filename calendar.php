@@ -1,7 +1,7 @@
 <?php
     session_start();
     if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true){
-        header("location: index.php");
+        header("location: login.php");
         exit;
     }
 ?>
@@ -261,7 +261,8 @@ function build_calendar($month, $year) {
     </style>
 </head>
 
-<body>
+<body style=" background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url(images/abstract-technological-background_23-2148897676.jpg);
+            background-size: cover;">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
