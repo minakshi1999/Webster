@@ -1,4 +1,111 @@
+<?php
+$showAlert = false;
+    if(isset($_POST['signup']))
+    {
+    
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+    include 'dbconnect.php';
+    $FirstName=$_POST["FirstName"];
+    $LastName=$_POST["LastName"];
+    $email=$_POST["email"];
+    $city=$_POST["city"];
+    $pswd=$_POST["pswd"];
+    $rpswd=$_POST["rpswd"];
+   // $usertype=$_POST["usertype"];
 
+   // $pass= password_hash($pswd,PASSWORD_BCRYPT);
+    //$rpass= password_hash($rpswd,PASSWORD_BCRYPT);
+  //  $exists=false;
+
+    $existSql="SELECT * FROM signup WHERE email='$email'";
+    $result = mysqli_query($conn, $existSql);
+    $numExistRows = mysqli_num_rows($result);
+    if($numExistRows > 0){
+        ?>
+        <script>
+            alert("Email already exist");
+        </script>
+        <?php
+        // echo "username already exist";
+        // $showError = "username already exist";
+    }
+    else{
+
+    if($pswd == $rpswd){
+        $sql="INSERT INTO signup (FirstName, LastName, email, city, pswd, rpswd) VALUES ('$FirstName', '$LastName', '$email', '$city', '$pswd', '$rpswd')";
+        $result = mysqli_query($conn,$sql);
+        if($result){
+            ?>
+            <script>
+                alert("signup successfuly");
+            </script>
+            <?php
+        }
+        else{
+
+            ?>
+            <script>
+                alert("User already exist");
+            </script>
+            <?php
+        }
+    }
+        else{
+            ?>
+            <script>
+                alert("Password do not match");
+            </script>
+            <?php
+            $showError="password do not match";
+            // echo "password do not match";
+        }
+    
+    }
+    }
+}
+?>
+
+<?php
+   if(isset($_POST['login']))
+   {
+    $login = false;
+    $showError = false;
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        include 'dbconnect.php';
+        $email = $_POST["email"];
+        $pswd = $_POST["pswd"];
+      //  $usertype = $_POST['usertype'];
+
+        $sql = "Select * from `signup` where email='$email' AND pswd='$pswd' ";
+        
+        $result = mysqli_query($conn, $sql);
+        $num = mysqli_num_rows($result);
+        if($num == 1){
+            $login = true;
+            echo "you are logged in";
+            session_start();
+            $_SESSION['loggedin'] = true;
+            $_SESSION['email']= $email;
+            
+            if ($email == "r@gmail.com")
+                header("location: admin/admin.php");
+                
+            else 
+                header("location: OurServices/services.html");
+                
+        }
+        else{?>
+                    <script>
+                        alert("Password do not match or sign up first");
+                    </script>
+                    <?php
+        }
+     }
+    
+     
+   }
+
+?>
 
 <!DOCTYPE html>
 <html>
@@ -36,6 +143,7 @@
                         <li class="nav-item me-3">
                             <a href="signup.php" class="nav-link" style="color: white;" >Signup</a></li>
                         </li>
+                       
                         <li class="nav-item me-3">
                             <a class="nav-link" style="color: white;" href="aboutUs.html">About us</a>
                         </li>
@@ -83,6 +191,137 @@
         </div>
     </div>
 
+    <!-- login
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                        <h2>Login</h2>
+                        <form action="index.php" method="post">
+                            <div class="mb-3 mt-3">
+                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd" required>
+                            </div>
+
+                            <div class=" ">
+                            <h5>Register as: </h5>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="usertype" id="inlineRadio1" value="patient">
+                                <label class="form-check-label" for="inlineRadio1">Patient</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="usertype" id="inlineRadio2" value="doctor">
+                                <label class="form-check-label" for="inlineRadio2">Doctor</label>
+                            </div>
+                        </div>
+-->
+                          <!--  <div class="form-check mb-3">
+                                <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" name="remember" required> Remember me
+                                </label>
+                            </div>  -->
+
+                       <!--     <div class="form-check mt-1">
+                            <input class="form-check-input" type="checkbox" name="remember" value="" id="defaultCheck1" required>
+                            <label class="form-check-label" for="defaultCheck1">
+                                Remember me
+                            </label>
+                        </div>
+                        
+                        <button type="submit" name="login" class="btn btn-primary">Log in</button>
+                        
+                        <div class="mt-2 ms-1">
+                            <a href="#" style="text-decoration:none;"><span>Forgotten password?</span></a>
+                          </div>
+                        </form>
+                </div>
+      
+          </div>
+        </div>
+    </div> -->
+     
+    
+    <!-- //Signup
+    <div class="modal fade" id="SignUpModal" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+      
+                    <div class="container mt-3">
+                    <h2>Sign Up</h2>
+            
+                        <form action="index.php" method="POST">
+                            <div class=" mt-3 overflow-hidden">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <input type="text" class="form-control" placeholder="First Name" name="FirstName">
+                                    </div>
+                                    <div class="col-sm overflow-hidden">
+                                        <input type="text" class="form-control" placeholder="Last Name" name="LastName">
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        
+                            <div class=" overflow-hidden">
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="email" class="form-control" placeholder="Email" name="email">
+                                    </div>
+                                    <div class="col">
+                                        <input type="city" class="form-control" placeholder="City" name="city">
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="overflow-hidden " >
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <input type="password" class="form-control" placeholder="Password" name="pswd">
+                                    </div>
+                                    <div class="col-sm">
+                                        <input type="password" class="form-control" placeholder="Retype password" name="rpswd">
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            
+                            <div class=" " >
+                                <h5>Register as: </h5>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="usertype" id="inlineRadio1" value="patient">
+                                    <label class="form-check-label" for="inlineRadio1">Patient</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="usertype" id="inlineRadio2" value="doctor">
+                                    <label class="form-check-label" for="inlineRadio2">Doctor</label>
+                                </div>
+                            </div>
+-->
+                            <!-- <div class=" form-check mt-3">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" name="remember"> Accept our<a href="#" style="text-decoration: none; "> Terms & Conditions</a>
+                                </label>
+                            </div> --><!--  <div class="form-check mt-1">
+                                <input class="form-check-input" type="checkbox" name="remember" value="" id="defaultCheck1" required>
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Accept our<a href="#" style="text-decoration: none; "> Terms & Conditions</a>
+                                </label>
+                            </div>
+                            
+                            <br>
+                        
+                            <button type="submit" name="signup" class="btn btn-primary">Register</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
       
     <br>
     <footer class="text-center mt-5  text-lg-start text-white" style=" background-color: black; left: 0; right: 0; width: 100%;">

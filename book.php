@@ -1,4 +1,12 @@
 <?php
+    session_start();
+    if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true){
+        header("location: index.php");
+        exit;
+    }
+?>
+
+<?php
 $mysqli = new mysqli('localhost', 'root', '', 'medical');
 if(isset($_GET['date'])){
     $date = $_GET['date'];
@@ -20,8 +28,10 @@ if(isset($_GET['date'])){
 }
 
 if(isset($_POST['submit'])){
+    //  echo $_POST['email'];
+    $email = $_POST['email']; 
     $name = $_POST['name'];
-    $email = $_POST['email'];
+    
     $timeslot = $_POST['timeslot'];
 
     $stmt = $mysqli->prepare("select * from bookings where date = ? AND timeslot = ?");
@@ -88,6 +98,7 @@ function timeslots($duration, $cleanup, $start, $end){
 
   <body style=" background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url(images/abstract-technological-background_23-2148897676.jpg);
             background-size: cover;">
+            <button><a href="logout.php" class="nav-link" style="color: blue; text-align: center;">Logout</a></button>
     <div class="container">
         <h1 class="text-center">Book for Date: <?php echo date('m/d/Y', strtotime($date)); ?></h1><hr>
         <div class="row">
@@ -137,7 +148,7 @@ function timeslots($duration, $cleanup, $start, $end){
 
                     <div class="form-group">
                         <label for="">Email</label>
-                        <input type="email"  name="email" id="email" class="form-control">
+                        <input type="email"  name="email" id="email" class="form-control" value="<?php echo $_SESSION['email']?>" readonly="readonly">
                     </div>
 
                     <div class="form-group pull-right">

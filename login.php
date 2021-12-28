@@ -1,41 +1,32 @@
 <?php
-session_start();
-?>
-<?php
 if (isset($_POST['login'])) {
     $login = false;
-  //  $showError = false;
+    $showError = false;
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         include 'dbconnect.php';
         $email = $_POST["email"];
         $pswd = $_POST["pswd"];
-        $usertype = $_POST['usertype'];
+      //  $usertype = $_POST['usertype'];
 
-        $sql = "Select * from `signup` where `email`='$email'";
+        $sql = "Select * from `signup` where email='$email' AND pswd='$pswd' ";
 
         $result = mysqli_query($conn, $sql);
         $num = mysqli_num_rows($result);
         if ($num == 1) {
-             $email_pass=mysqli_fetch_assoc($result);
-             $db_pass=$email_pass['rpswd'];
-             $pass_decode=password_verify($pswd,$db_pass);
-           if($pass_decode){
             $login = true;
             echo "you are logged in";
             session_start();
             $_SESSION['loggedin'] = true;
             $_SESSION['email'] = $email;
-            if ($usertype == "patient")
-                header("location: patient_profile.php");
-            else if ($usertype == "doctor")
-                header("location: doctor_profile.php");
-            }
-            else{
-               echo "password Incorrect";
-            }
-        } else {
-            echo "Invalid email sign up first";
-            // $showError = "Password do not match or sign up first";
+            if ($email == "r@gmail.com")
+                header("location: admin/admin.php");
+                
+            else 
+                header("location: OurServices/services.html");
+                
+       // } else {
+           // echo "password do not match or sign up first";
+           // $showError = "Password do not match or sign up first";
         }
     }
 }
@@ -81,9 +72,7 @@ if (isset($_POST['login'])) {
                         <a href="signup.php" class="nav-link" style="color: white;">Signup</a>
                     </li>
                     </li>
-                    <li class="nav-item me-3">
-                        <a class="nav-link" style="color: white;" href="#">My Appointment</a>
-                    </li>
+                   
                     <li class="nav-item me-3">
                         <a class="nav-link" style="color: white;" href="aboutUs.html">About us</a>
                     </li>
@@ -105,24 +94,8 @@ if (isset($_POST['login'])) {
             <div class="modal-body">
                 <h2>Login</h2>
                 <form action="login.php" method="post">
-                    <div style=" float: left;">
-                        <a href="#" class="fb btn" style="background-color:  #3B5998; margin: 5px 0; opacity: 0.85; width: 100%;padding: 12px;border: none;  display: inline-block;font-size: 17px;  color:white">
-                            <i class="fa fa-facebook fa-fw"></i> Login with Facebook
-                        </a>
-                       
-                     
-                        <a href="#" class="google btn" style="background-color: #dd4b39; margin: 5px 0;opacity: 0.85; width: 100%; padding: 12px;border: none;  display: inline-block;font-size: 17px;color:white">
-                            <i class="fa fa-google fa-fw"></i> Login with Google+
-                        </a>
-                    </div>
-                    </br>
-                    </br>  
-                    </br>
-                    </br>
-                    </br>
-                    <div class="vl" style="position: absolute; left: 50%;">
-                        <span class="vl-innertext" style=" padding: 2px 3px;" >OR</span>
-                    </div>
+                   
+                    
                     <div class="mb-3 mt-3">
                         <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
                     </div>
@@ -130,7 +103,7 @@ if (isset($_POST['login'])) {
                         <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd" required>
                     </div>
 
-                    <div class=" ">
+           <!--         <div class=" ">
                         <h5>Login as: </h5>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="usertype" id="inlineRadio1" value="patient">
@@ -138,9 +111,9 @@ if (isset($_POST['login'])) {
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="usertype" id="inlineRadio2" value="doctor">
-                            <label class="form-check-label" for="inlineRadio2">Doctor</label>
+                            <label class="form-check-label" for="inlineRadio2">Admin</label>
                         </div>
-                    </div>
+                    </div>-->
 
 
                     <div class="form-check mt-1">

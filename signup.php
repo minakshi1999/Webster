@@ -10,11 +10,10 @@ if (isset($_POST['signup'])) {
         $city = $_POST["city"];
         $pswd = $_POST["pswd"];
         $rpswd = $_POST["rpswd"];
-        $usertype = $_POST["usertype"];
 
-        $pass = password_hash($pswd, PASSWORD_BCRYPT);
-        $rpass = password_hash($rpswd, PASSWORD_BCRYPT);
-        //  $exists=false;
+    //    $pass = password_hash($pswd, PASSWORD_BCRYPT);
+    //    $rpass = password_hash($rpswd, PASSWORD_BCRYPT);
+        
 
         $existSql = "SELECT * FROM signup WHERE email='$email'";
         $result = mysqli_query($conn, $existSql);
@@ -25,12 +24,11 @@ if (isset($_POST['signup'])) {
                 alert("Email already exist");
             </script>
             <?php
-            // echo "username already exist";
-            // $showError = "username already exist";
+           
         } else {
 
             if ($pswd == $rpswd) {
-                $sql = "INSERT INTO signup (FirstName, LastName, email, city, pswd, rpswd, usertype) VALUES ('$FirstName', '$LastName', '$email', '$city', '$pass', '$rpass','$usertype')";
+                $sql = "INSERT INTO signup (FirstName, LastName, email, city, pswd, rpswd, usertype) VALUES ('$FirstName', '$LastName', '$email', '$city', '$pswd', '$rpswd','$usertype')";
                 $result = mysqli_query($conn, $sql);
                 if ($result) {
             ?>
@@ -53,7 +51,7 @@ if (isset($_POST['signup'])) {
                 </script>
 <?php
                 $showError = "password do not match";
-                // echo "password do not match";
+                
             }
         }
     }
@@ -99,9 +97,7 @@ if (isset($_POST['signup'])) {
                         <a href="signup.php" class="nav-link" style="color: white;" >Signup</a>
                     </li>
                     </li>
-                    <li class="nav-item me-3">
-                        <a class="nav-link" style="color: white;" href="#">My Appointment</a>
-                    </li>
+                    
                     <li class="nav-item me-3">
                         <a class="nav-link" style="color: white;" href="aboutUs.html">About us</a>
                     </li>
@@ -161,17 +157,7 @@ if (isset($_POST['signup'])) {
                             </div>
                             <br>
 
-                            <div class=" ">
-                                <h5>Register as: </h5>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="usertype" id="inlineRadio1" value="patient">
-                                    <label class="form-check-label" for="inlineRadio1">Patient</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="usertype" id="inlineRadio2" value="doctor">
-                                    <label class="form-check-label" for="inlineRadio2">Doctor</label>
-                                </div>
-                            </div>
+                   
 
                            
                             <div class="form-check mt-1">
