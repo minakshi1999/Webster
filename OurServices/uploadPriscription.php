@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
            if($fileError===0){
                if($fileSize<1000000){
                   $filenameNew=uniqid('',true).".".$fileactualExt;
-                  $fileDestination = '../admin/'.$filenameNew;
+                  $fileDestination = '../admin/admin.php'.$filenameNew;
                   move_uploaded_file($fileTmp,$fileDestination);
 
                   $iquery = "INSERT INTO `uploadpriscription` (`Firstname`, `Lastname`, `Email`, `Mobile`, `Address`, `City`, `PIN`, `State`) VALUES ('$firstname', '$lastname', '$email', '$mobile','$address','$city', '$pin','$state')";
