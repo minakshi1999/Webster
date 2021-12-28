@@ -263,6 +263,8 @@ function build_calendar($month, $year) {
 
 <body style=" background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url(images/abstract-technological-background_23-2148897676.jpg);
             background-size: cover;">
+              <button><a href="logout.php" class="nav-link" style="color: blue; text-align: center;">Logout</a></button>
+    <div class="container">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
