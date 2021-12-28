@@ -125,9 +125,9 @@ if (isset($_POST['login'])) {
 
                     <button type="submit" name="login" class="btn btn-primary">Log in</button>
 
-                    <div class="mt-2 ms-1">
+                    <!-- <div class="mt-2 ms-1">
                         <a href="#" style="text-decoration:none;"><span>Forgotten password?</span></a>
-                    </div>
+                    </div> -->
                 </form>
             </div>
 
